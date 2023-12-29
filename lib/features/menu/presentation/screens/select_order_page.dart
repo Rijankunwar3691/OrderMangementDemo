@@ -115,7 +115,7 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
                   },
                   itemBuilder: (BuildContext context, int index) {
                     return MenuListWidget(
-                      title: menuList[index],
+                      items: menuList[index],
                     );
                   },
                 ),
@@ -128,7 +128,7 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
                   },
                   itemBuilder: (BuildContext context, int index) {
                     return MenuListWidget(
-                      title: vegList[index],
+                      items: vegList[index],
                     );
                   },
                 ),
@@ -141,7 +141,7 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
                   },
                   itemBuilder: (BuildContext context, int index) {
                     return MenuListWidget(
-                      title: nonVegList[index],
+                      items: nonVegList[index],
                     );
                   },
                 ),
@@ -154,7 +154,7 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
                   },
                   itemBuilder: (BuildContext context, int index) {
                     return MenuListWidget(
-                      title: drinks[index],
+                     items: drinks[index],
                     );
                   },
                 ),

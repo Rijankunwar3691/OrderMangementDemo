@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/resources/colors_manager.dart';
 import 'package:hoteldemo/core/widgets/reusable_text.dart';
+import 'package:hoteldemo/features/menu/domain/model/menu_model.dart';
 
 class MenuListWidget extends StatelessWidget {
-  final String title;
-  const MenuListWidget({super.key, required this.title});
+  final ItemModel items;
+  const MenuListWidget({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,9 @@ class MenuListWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 ReusableText.textWigdet(
-                    text: title, fSize: 18.sp, fw: FontWeight.w600),
+                    text: items.name.toString(),
+                    fSize: 18.sp,
+                    fw: FontWeight.w600),
                 SizedBox(
                   height: 8.h,
                 ),
@@ -42,7 +45,7 @@ class MenuListWidget extends StatelessWidget {
                   height: 6.h,
                 ),
                 ReusableText.textWigdet(
-                    text: 'Rs 500',
+                    text: 'Rs ${items.price}',
                     fSize: 16.sp,
                     fw: FontWeight.w500,
                     color: Appcolors.primary)

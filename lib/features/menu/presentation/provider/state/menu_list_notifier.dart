@@ -18,16 +18,16 @@ class MenuListNotifier extends StateNotifier<MenuState> {
         drinks: filterDrinks(menuList));
   }
 
-  List<String> allMenu(List<MenuModel> menuList) {
-    List<String> filtered = [];
+  List<ItemModel> allMenu(List<MenuModel> menuList) {
+    List<ItemModel> filtered = [];
     for (var item in menuList) {
       filtered.addAll(item.items!.toList());
     }
     return filtered;
   }
 
-  List<String> filterVeg(List<MenuModel> menuList) {
-    List<String> filtered = [];
+  List<ItemModel> filterVeg(List<MenuModel> menuList) {
+    List<ItemModel> filtered = [];
     for (var item in menuList) {
       if (item.category == 'Veg') {
         filtered.addAll(item.items!.toList());
@@ -37,8 +37,8 @@ class MenuListNotifier extends StateNotifier<MenuState> {
     return filtered;
   }
 
-  List<String> filterNonVeg(List<MenuModel> menuList) {
-    List<String> filtered = [];
+  List<ItemModel> filterNonVeg(List<MenuModel> menuList) {
+    List<ItemModel> filtered = [];
     for (var item in menuList) {
       if (item.category == 'Non-Veg') {
         filtered.addAll(item.items!.toList());
@@ -47,8 +47,8 @@ class MenuListNotifier extends StateNotifier<MenuState> {
     return filtered;
   }
 
-  List<String> filterDrinks(List<MenuModel> menuList) {
-    List<String> filtered = [];
+  List<ItemModel> filterDrinks(List<MenuModel> menuList) {
+    List<ItemModel> filtered = [];
     for (var item in menuList) {
       if (item.category == 'Drinks') {
         filtered.addAll(item.items!.toList());

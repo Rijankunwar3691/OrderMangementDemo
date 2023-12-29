@@ -1,8 +1,10 @@
+import 'package:hoteldemo/features/menu/domain/model/menu_model.dart';
+
 class MenuState {
-  final List<String> veg;
-  final List<String> nonVeg;
-  final List<String> drinks;
-  final List<String> menuList;
+  final List<ItemModel> veg;
+  final List<ItemModel> nonVeg;
+  final List<ItemModel> drinks;
+  final List<ItemModel> menuList;
 
   MenuState({
     required this.veg,
@@ -12,10 +14,10 @@ class MenuState {
   });
 
   MenuState copyWith(
-      {List<String>? veg,
-      List<String>? nonVeg,
-      List<String>? drinks,
-      List<String>? menuList}) {
+      {List<ItemModel>? veg,
+      List<ItemModel>? nonVeg,
+      List<ItemModel>? drinks,
+      List<ItemModel>? menuList}) {
     return MenuState(
         veg: veg ?? this.veg,
         nonVeg: nonVeg ?? this.nonVeg,
