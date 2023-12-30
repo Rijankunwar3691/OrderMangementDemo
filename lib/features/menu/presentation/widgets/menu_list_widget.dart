@@ -18,7 +18,6 @@ class _MenuListWidgetState extends ConsumerState<MenuListWidget> {
   @override
   Widget build(BuildContext context) {
     final menuCount = ref.watch(menuCountProvider);
-    print(menuCount);
 
     return SizedBox(
       height: 120.h,

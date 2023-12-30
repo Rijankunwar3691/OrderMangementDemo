@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hoteldemo/core/dummy/dummy_data.dart';
 import 'package:hoteldemo/features/menu/domain/model/menu_model.dart';
 import 'package:hoteldemo/features/menu/domain/repository/menu_repo.dart';
 import 'package:hoteldemo/features/menu/presentation/provider/state/menu_state.dart';

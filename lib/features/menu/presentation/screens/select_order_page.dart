@@ -5,9 +5,9 @@ import 'package:hoteldemo/core/resources/colors_manager.dart';
 import 'package:hoteldemo/core/widgets/app_bar.dart';
 import 'package:hoteldemo/core/widgets/reusable_text.dart';
 import 'package:hoteldemo/core/widgets/text_field.dart';
-import 'package:hoteldemo/features/menu/presentation/provider/menu_count_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/provider/menu_list_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/widgets/menu_list_widget.dart';
+import 'package:hoteldemo/features/menu/presentation/widgets/total_sheet_widget.dart';
 
 class SelectOrderPage extends ConsumerStatefulWidget {
   const SelectOrderPage({super.key});
@@ -163,6 +163,7 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
           ],
         ),
       ),
+      bottomSheet: TotalSheetWidget(),
     );
   }
 }
