@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hoteldemo/core/dummy/dummy_data.dart';
 import 'package:hoteldemo/core/resources/colors_manager.dart';
 import 'package:hoteldemo/core/widgets/app_bar.dart';
 import 'package:hoteldemo/core/widgets/reusable_text.dart';
 import 'package:hoteldemo/core/widgets/text_field.dart';
+import 'package:hoteldemo/features/menu/presentation/provider/menu_count_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/provider/menu_list_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/widgets/menu_list_widget.dart';
 
@@ -154,7 +154,7 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
                   },
                   itemBuilder: (BuildContext context, int index) {
                     return MenuListWidget(
-                     items: drinks[index],
+                      items: drinks[index],
                     );
                   },
                 ),

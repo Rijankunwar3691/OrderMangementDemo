@@ -13,11 +13,12 @@ class MenuModel {
 }
 
 class ItemModel {
+  String? id;
   String? name;
   int? price;
-  ItemModel({required this.name, required this.price});
+  ItemModel({required this.name, required this.price,required this.id});
 
   factory ItemModel.fromJson(Map<String, dynamic> json) {
-    return ItemModel(name: json['name'], price: json["price"]);
+    return ItemModel(name: json['name'], price: json["price"],id: json["id"]);
   }
 }

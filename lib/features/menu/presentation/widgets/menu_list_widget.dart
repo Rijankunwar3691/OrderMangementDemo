@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/resources/colors_manager.dart';
 import 'package:hoteldemo/core/widgets/reusable_text.dart';
 import 'package:hoteldemo/features/menu/domain/model/menu_model.dart';
+import 'package:hoteldemo/features/menu/presentation/provider/menu_count_provider.dart';
 
-class MenuListWidget extends StatelessWidget {
+class MenuListWidget extends ConsumerStatefulWidget {
   final ItemModel items;
   const MenuListWidget({super.key, required this.items});
 
   @override
+  ConsumerState<MenuListWidget> createState() => _MenuListWidgetState();
+}
+
+class _MenuListWidgetState extends ConsumerState<MenuListWidget> {
+  @override
   Widget build(BuildContext context) {
+    final menuCount = ref.watch(menuCountProvider);
+    print(menuCount);
+
     return SizedBox(
       height: 120.h,
       width: double.infinity,
@@ -31,7 +41,7 @@ class MenuListWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 ReusableText.textWigdet(
-                    text: items.name.toString(),
+                    text: widget.items.name.toString(),
                     fSize: 18.sp,
                     fw: FontWeight.w600),
                 SizedBox(
@@ -45,7 +55,7 @@ class MenuListWidget extends StatelessWidget {
                   height: 6.h,
                 ),
                 ReusableText.textWigdet(
-                    text: 'Rs ${items.price}',
+                    text: widget.items.price.toString(),
                     fSize: 16.sp,
                     fw: FontWeight.w500,
                     color: Appcolors.primary)
@@ -58,16 +68,26 @@ class MenuListWidget extends StatelessWidget {
               Expanded(
                 child: IconButton(
                     alignment: Alignment(0, -0.5.h),
-                    onPressed: () {},
+                    onPressed: () {
+                      ref
+                          .read(menuCountProvider.notifier)
+                          .decrementCount(widget.items.name.toString());
+                    },
                     icon: Icon(
                       Icons.minimize,
                       size: 18.h,
                     )),
               ),
-              ReusableText.textWigdet(text: '1'),
+              ReusableText.textWigdet(
+                  text:
+                      menuCount[widget.items.name]?.toString() ?? 0.toString()),
               Expanded(
                 child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      ref
+                          .read(menuCountProvider.notifier)
+                          .incrementCount(widget.items.name.toString());
+                    },
                     icon: Icon(
                       Icons.add,
                       size: 18.h,
