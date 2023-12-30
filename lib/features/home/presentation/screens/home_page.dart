@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hoteldemo/core/resources/assets_manager.dart';
-import 'package:hoteldemo/core/widgets/reusable_text.dart';
-import 'package:hoteldemo/core/widgets/text_field.dart';
+import 'package:hoteldemo/core/export.dart';
+
 import 'package:hoteldemo/features/home/presentation/provider/tables_list_provider.dart';
 import 'package:hoteldemo/features/home/presentation/widgets/table_container.dart';
 import 'package:hoteldemo/features/menu/presentation/provider/menu_list_provider.dart';
@@ -68,11 +67,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   itemBuilder: (context, index) => GestureDetector(
                       onTap: () {
                         ref.read(menuListProvider.notifier).getMenuList();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SelectOrderPage(),
-                            ));
+                        Navigator.pushNamed(context, AppRoutes.menuRoute);
                       },
                       child: TableContainer(
                           tableNo: tableList[index].id.toString(),

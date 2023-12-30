@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hoteldemo/core/resources/colors_manager.dart';
-import 'package:hoteldemo/core/widgets/reusable_text.dart';
+import 'package:hoteldemo/core/export.dart';
+ 
 
 class TotalSheetWidget extends StatelessWidget {
   const TotalSheetWidget({super.key});
@@ -39,7 +39,11 @@ class TotalSheetWidget extends StatelessWidget {
               ],
             ),
           ),
-          ElevatedButton(onPressed: () {}, child: const Text('View Order'))
+          ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.orderSummaryPage);
+              },
+              child: const Text('View Order'))
         ],
       ),
     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hoteldemo/core/resources/colors_manager.dart';
-import 'package:hoteldemo/core/widgets/reusable_text.dart';
+import '../../../../core/export.dart';
 
 class TableContainer extends StatelessWidget {
   final String tableNo;

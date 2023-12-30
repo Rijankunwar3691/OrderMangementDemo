@@ -28,7 +28,7 @@ class _MenuListWidgetState extends ConsumerState<MenuListWidget> {
           Container(
             height: 60.h,
             width: 60.w,
-            color: Appcolors.accentOrange,
+            color: Appcolors.greyInformation,
           ),
           SizedBox(
             width: 15.w,
