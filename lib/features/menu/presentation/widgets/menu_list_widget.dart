@@ -4,7 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/resources/colors_manager.dart';
 import 'package:hoteldemo/core/widgets/reusable_text.dart';
 import 'package:hoteldemo/features/menu/domain/model/menu_model.dart';
-import 'package:hoteldemo/features/menu/presentation/provider/menu_count_provider.dart';
+import 'package:hoteldemo/features/menu/presentation/provider/menu_toogle_provider.dart';
+import 'package:hoteldemo/features/menu/presentation/provider/total_price_provider.dart';
 
 class MenuListWidget extends ConsumerStatefulWidget {
   final ItemModel items;
@@ -68,9 +69,12 @@ class _MenuListWidgetState extends ConsumerState<MenuListWidget> {
                 child: IconButton(
                     alignment: Alignment(0, -0.5.h),
                     onPressed: () {
+                      ref.read(menuCountProvider.notifier).decrementCount(
+                          widget.items.name.toString(),
+                          widget.items.price!.toInt());
                       ref
-                          .read(menuCountProvider.notifier)
-                          .decrementCount(widget.items.name.toString());
+                          .read(totalPriceProvider.notifier)
+                          .calculateTotalPrice(menuCount);
                     },
                     icon: Icon(
                       Icons.minimize,
@@ -78,14 +82,17 @@ class _MenuListWidgetState extends ConsumerState<MenuListWidget> {
                     )),
               ),
               ReusableText.textWigdet(
-                  text:
-                      menuCount[widget.items.name]?.toString() ?? 0.toString()),
+                  text: menuCount[widget.items.name]?['count'].toString() ??
+                      0.toString()),
               Expanded(
                 child: IconButton(
                     onPressed: () {
+                      ref.read(menuCountProvider.notifier).incrementCount(
+                          widget.items.name.toString(),
+                          widget.items.price!.toInt());
                       ref
-                          .read(menuCountProvider.notifier)
-                          .incrementCount(widget.items.name.toString());
+                          .read(totalPriceProvider.notifier)
+                          .calculateTotalPrice(menuCount);
                     },
                     icon: Icon(
                       Icons.add,

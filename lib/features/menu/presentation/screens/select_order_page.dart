@@ -5,12 +5,14 @@ import 'package:hoteldemo/core/resources/colors_manager.dart';
 import 'package:hoteldemo/core/widgets/app_bar.dart';
 import 'package:hoteldemo/core/widgets/reusable_text.dart';
 import 'package:hoteldemo/core/widgets/text_field.dart';
+import 'package:hoteldemo/features/menu/presentation/provider/menu_toogle_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/provider/menu_list_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/widgets/menu_list_widget.dart';
 import 'package:hoteldemo/features/menu/presentation/widgets/total_sheet_widget.dart';
 
 class SelectOrderPage extends ConsumerStatefulWidget {
-  const SelectOrderPage({super.key});
+  final String? tableNo;
+  const SelectOrderPage({super.key, this.tableNo});
 
   @override
   ConsumerState<SelectOrderPage> createState() => _SelectOrderPageState();
@@ -49,6 +51,8 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
     final nonVegList = menuListState.nonVeg;
     final drinks = menuListState.drinks;
 
+    final menuCount = ref.watch(menuCountProvider);
+
     return Scaffold(
       appBar: AppBarWidget.appBar(title: 'Menu'),
       body: Padding(
@@ -65,9 +69,9 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
             Row(
               children: [
                 ReusableText.textWigdet(
-                    text: 'Table 3B',
+                    text: '# Table ${widget.tableNo.toString()}',
                     fSize: 19.sp,
-                    fw: FontWeight.w500,
+                    fw: FontWeight.w600,
                     color: Appcolors.blackPrimary),
                 SizedBox(
                   width: 80.w,
@@ -163,7 +167,7 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
           ],
         ),
       ),
-      bottomSheet: TotalSheetWidget(),
+      bottomSheet: TotalSheetWidget(orderCount: menuCount.length,tableNo: widget.tableNo.toString()),
     );
   }
 }

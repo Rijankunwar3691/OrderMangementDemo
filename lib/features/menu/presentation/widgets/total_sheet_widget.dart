@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/export.dart';
- 
+import 'package:hoteldemo/features/menu/presentation/provider/menu_toogle_provider.dart';
+import 'package:hoteldemo/features/menu/presentation/provider/total_price_provider.dart';
+import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
+import 'package:hoteldemo/features/orders/presentation/screens/order_summary_page.dart';
 
-class TotalSheetWidget extends StatelessWidget {
-  const TotalSheetWidget({super.key});
+class TotalSheetWidget extends ConsumerStatefulWidget {
+  final int orderCount;
+  final String tableNo;
+  const TotalSheetWidget(
+      {super.key, required this.orderCount, required this.tableNo});
 
   @override
+  ConsumerState<TotalSheetWidget> createState() => _TotalSheetWidgetState();
+}
+
+class _TotalSheetWidgetState extends ConsumerState<TotalSheetWidget> {
+  @override
   Widget build(BuildContext context) {
+    final menuCount = ref.watch(menuCountProvider);
+    final totalPriceState = ref.watch(totalPriceProvider);
+
     return SizedBox(
       height: 85.h,
       child: Row(
@@ -24,7 +39,9 @@ class TotalSheetWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ReusableText.textWigdet(
-                    text: '3 Item', fSize: 16.sp, fw: FontWeight.w500),
+                    text: '${widget.orderCount} Item',
+                    fSize: 16.sp,
+                    fw: FontWeight.w500),
                 Container(
                   height: 35.h,
                   width: 2.w,
@@ -32,7 +49,7 @@ class TotalSheetWidget extends StatelessWidget {
                 ),
                 ReusableText.textWigdet(
                   color: Appcolors.primary,
-                  text: 'Rs 500',
+                  text: 'Rs ${totalPriceState.totalPrice.toString()}',
                   fSize: 16.sp,
                   fw: FontWeight.w500,
                 )
@@ -40,9 +57,19 @@ class TotalSheetWidget extends StatelessWidget {
             ),
           ),
           ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.orderSummaryPage);
-              },
+              onPressed: menuCount.isEmpty
+                  ? null
+                  : () {
+                      ref
+                          .read(orderListProvider.notifier)
+                          .getOrderList(menuCount);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                OrderSummaryPage(tableNo: widget.tableNo),
+                          ));
+                    },
               child: const Text('View Order'))
         ],
       ),

@@ -8,11 +8,11 @@ class AppRoutes {
 }
 
 class RoutesGenerator {
-  static Route<dynamic> getRoute(RouteSettings settings) {
+  static Route<dynamic> getRoute(RouteSettings settings,) {
     switch (settings.name) {
       case AppRoutes.menuRoute:
         return MaterialPageRoute(
-          builder: (context) => const SelectOrderPage(),
+          builder: (context) =>  const SelectOrderPage(),
         );
 
       case AppRoutes.orderSummaryPage:

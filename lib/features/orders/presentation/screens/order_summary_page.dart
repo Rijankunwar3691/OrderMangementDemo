@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/export.dart';
-import 'package:hoteldemo/features/menu/domain/model/menu_model.dart';
-import 'package:hoteldemo/features/menu/presentation/provider/menu_count_provider.dart';
+import 'package:hoteldemo/features/menu/presentation/provider/total_price_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/widgets/menu_list_widget.dart';
+import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
 
 class OrderSummaryPage extends ConsumerStatefulWidget {
-  const OrderSummaryPage({super.key});
+  final String? tableNo;
+
+  const OrderSummaryPage({super.key, this.tableNo});
 
   @override
   ConsumerState<OrderSummaryPage> createState() => _OrderSummaryPageState();
@@ -16,7 +18,9 @@ class OrderSummaryPage extends ConsumerStatefulWidget {
 class _OrderSummaryPageState extends ConsumerState<OrderSummaryPage> {
   @override
   Widget build(BuildContext context) {
-    final orderList = ref.watch(menuCountProvider);
+    final orderList = ref.watch(orderListProvider);
+    final totalPriceState = ref.watch(totalPriceProvider);
+
     return Scaffold(
       appBar: AppBarWidget.appBar(title: 'Order Summary'),
       body: Padding(
@@ -43,7 +47,9 @@ class _OrderSummaryPageState extends ConsumerState<OrderSummaryPage> {
                         height: 5.h,
                       ),
                       ReusableText.textWigdet(
-                          text: '3B', fSize: 18.sp, fw: FontWeight.w600),
+                          text: widget.tableNo.toString(),
+                          fSize: 18.sp,
+                          fw: FontWeight.w600),
                     ],
                   ),
                   const Spacer(),
@@ -78,7 +84,7 @@ class _OrderSummaryPageState extends ConsumerState<OrderSummaryPage> {
               height: 380.h,
               child: ListView.separated(
                 shrinkWrap: true,
-                itemCount: 3,
+                itemCount: orderList.orderList.length,
                 separatorBuilder: (BuildContext context, int index) {
                   return Container(
                     margin: EdgeInsetsDirectional.only(
@@ -90,8 +96,7 @@ class _OrderSummaryPageState extends ConsumerState<OrderSummaryPage> {
                   );
                 },
                 itemBuilder: (BuildContext context, int index) {
-                  return MenuListWidget(
-                      items: ItemModel(name: 'alooo', price: 500, id: '55'));
+                  return MenuListWidget(items: orderList.orderList[index]);
                 },
               ),
             ),
@@ -110,7 +115,9 @@ class _OrderSummaryPageState extends ConsumerState<OrderSummaryPage> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Appcolors.accentOrange),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.menuRoute);
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -140,7 +147,7 @@ class _OrderSummaryPageState extends ConsumerState<OrderSummaryPage> {
                                 fontWeight: FontWeight.w400),
                             children: [
                           TextSpan(
-                              text: ' 2000',
+                              text: totalPriceState.totalPrice.toString(),
                               style: TextStyle(
                                   color: Appcolors.primary,
                                   fontSize: 18.sp,
@@ -185,7 +192,7 @@ class _OrderSummaryPageState extends ConsumerState<OrderSummaryPage> {
                   width: 10.w,
                 ),
                 ReusableText.textWigdet(
-                    text: '2000',
+                    text: totalPriceState.totalBill.toString(),
                     fSize: 18.sp,
                     color: Appcolors.primary,
                     fw: FontWeight.w600),

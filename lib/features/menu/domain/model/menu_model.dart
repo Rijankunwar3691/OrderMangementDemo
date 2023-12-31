@@ -16,9 +16,10 @@ class ItemModel {
   String? id;
   String? name;
   int? price;
-  ItemModel({required this.name, required this.price,required this.id});
+  int? count;
+  ItemModel({required this.name, required this.price, required this.id, this.count = 0});
 
   factory ItemModel.fromJson(Map<String, dynamic> json) {
-    return ItemModel(name: json['name'], price: json["price"],id: json["id"]);
+    return ItemModel(name: json['name'], price: json["price"], id: json["id"]);
   }
 }
