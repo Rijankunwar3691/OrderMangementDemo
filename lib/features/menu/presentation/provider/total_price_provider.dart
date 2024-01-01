@@ -3,6 +3,7 @@ import 'package:hoteldemo/features/menu/presentation/provider/state/calculate_to
 import 'package:hoteldemo/features/menu/presentation/provider/state/total_price_state.dart';
 
 final totalPriceProvider =
-    StateNotifierProvider<TotalPriceNotifier, TotalPriceState>((ref) {
+    StateNotifierProvider.autoDispose<TotalPriceNotifier, TotalPriceState>(
+        (ref) {
   return TotalPriceNotifier();
 });

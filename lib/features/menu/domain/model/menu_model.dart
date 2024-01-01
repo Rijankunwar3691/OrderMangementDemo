@@ -17,9 +17,37 @@ class ItemModel {
   String? name;
   int? price;
   int? count;
-  ItemModel({required this.name, required this.price, required this.id, this.count = 0});
+  int? billPrice;
+  int? orderId;
+  ItemModel(
+      {required this.name,
+      required this.price,
+      required this.id,
+      this.orderId,
+      this.count = 0,
+      this.billPrice});
 
   factory ItemModel.fromJson(Map<String, dynamic> json) {
-    return ItemModel(name: json['name'], price: json["price"], id: json["id"]);
+    return ItemModel(
+        name: json['name'],
+        price: json["price"],
+        id: json["Id"],
+        count: json['count'],
+        billPrice: json['billPrice'],
+        orderId: json['orderId']);
+  }
+
+  tojson() {
+    Map<String, dynamic> data = {};
+
+    data['id'] = id;
+    data['name'] = name;
+    data['count'] = count;
+    data['price'] = price;
+
+    data['billPrice'] = billPrice;
+    data['orderId'] = orderId;
+
+    return data;
   }
 }

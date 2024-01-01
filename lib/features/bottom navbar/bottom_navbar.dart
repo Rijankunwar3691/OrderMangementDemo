@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hoteldemo/core/resources/colors_manager.dart';
 import 'package:hoteldemo/features/home/presentation/screens/home_page.dart';
-import 'package:hoteldemo/features/orders/presentation/screens/orders.dart';
+import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
+import 'package:hoteldemo/features/orders/presentation/screens/orders_page.dart';
 import 'package:hoteldemo/features/profile/presentation/screens/profile_page.dart';
 
-class CustomButtomBar extends StatefulWidget {
+class CustomButtomBar extends ConsumerStatefulWidget {
   const CustomButtomBar({super.key});
 
   @override
-  State<CustomButtomBar> createState() => _CustomButtomBarState();
+  ConsumerState<CustomButtomBar> createState() => _CustomButtomBarState();
 }
 
-class _CustomButtomBarState extends State<CustomButtomBar> {
+class _CustomButtomBarState extends ConsumerState<CustomButtomBar> {
   int _selectedIndex = 0;
   final List<Widget> pages = [
     const HomePage(),
@@ -29,6 +31,9 @@ class _CustomButtomBarState extends State<CustomButtomBar> {
           setState(() {
             _selectedIndex = value;
           });
+          if (_selectedIndex == 1) {
+            ref.read(orderListProvider.notifier).getOrderHistory();
+          }
         },
         items: const [
           BottomNavigationBarItem(

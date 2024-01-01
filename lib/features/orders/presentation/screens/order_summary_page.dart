@@ -22,7 +22,9 @@ class _OrderSummaryPageState extends ConsumerState<OrderSummaryPage> {
     final totalPriceState = ref.watch(totalPriceProvider);
 
     return Scaffold(
-      appBar: AppBarWidget.appBar(title: 'Order Summary'),
+      appBar: AppBarWidget.appBar(
+        title: 'Order Summary',
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 18.h),
         child: Column(
@@ -203,7 +205,12 @@ class _OrderSummaryPageState extends ConsumerState<OrderSummaryPage> {
             ),
             Center(
                 child: ElevatedButton(
-                    onPressed: () {}, child: const Text('Confirm Order')))
+                    onPressed: () {
+                      ref.read(orderListProvider.notifier).saveOrder(
+                          items: orderList.orderList,
+                          billPrice: totalPriceState.totalBill.toInt());
+                    },
+                    child: const Text('Confirm Order')))
           ],
         ),
       ),

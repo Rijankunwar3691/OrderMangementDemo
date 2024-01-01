@@ -62,7 +62,7 @@ class _TotalSheetWidgetState extends ConsumerState<TotalSheetWidget> {
                   : () {
                       ref
                           .read(orderListProvider.notifier)
-                          .getOrderList(menuCount);
+                          .getOrderList(menuCount, widget.tableNo);
                       Navigator.push(
                           context,
                           MaterialPageRoute(

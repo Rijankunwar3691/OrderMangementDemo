@@ -13,7 +13,7 @@ class TableContainer extends StatelessWidget {
     return Card(
       color: (isOccupied == 'true') ? Appcolors.accentOrange : Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-      child: Container(
+      child: SizedBox(
         height: 40.h,
         width: 40.w,
         child: Padding(
