@@ -6,7 +6,6 @@ class ReusableText {
       {required String text, double? fSize, FontWeight? fw, Color? color}) {
     return Text(
       text,
-      
       style: TextStyle(
           fontSize: fSize ?? 12.sp,
           fontWeight: fw ?? FontWeight.normal,
