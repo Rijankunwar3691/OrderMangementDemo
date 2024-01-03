@@ -20,4 +20,9 @@ class OrderRepoImp implements OrdersRepository {
   Future<void> deleteOrder(int id) async {
     await orderDataSource.deleteOrder(id);
   }
+
+  @override
+  Future<void> updateOrder(int id, ItemModel data) async {
+    await orderDataSource.updateOrder(id, data);
+  }
 }

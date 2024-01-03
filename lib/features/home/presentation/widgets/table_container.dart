@@ -4,14 +4,14 @@ import '../../../../core/export.dart';
 
 class TableContainer extends StatelessWidget {
   final String tableNo;
-  final String isOccupied;
+  final bool isOccupied;
   const TableContainer(
       {super.key, required this.tableNo, required this.isOccupied});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: (isOccupied == 'true') ? Appcolors.accentOrange : Colors.white,
+      color: isOccupied ? Appcolors.accentOrange : Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
       child: SizedBox(
         height: 40.h,
@@ -24,7 +24,7 @@ class TableContainer extends StatelessWidget {
               ReusableText.textWigdet(
                   text: tableNo, fw: FontWeight.bold, fSize: 22.sp),
               const Spacer(),
-              (isOccupied == 'true')
+              isOccupied
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

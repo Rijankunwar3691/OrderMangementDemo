@@ -167,7 +167,8 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
           ],
         ),
       ),
-      bottomSheet: TotalSheetWidget(orderCount: menuCount.length,tableNo: widget.tableNo.toString()),
+      bottomSheet: TotalSheetWidget(
+          orderCount: menuCount.length, tableNo: widget.tableNo.toString()),
     );
   }
 }

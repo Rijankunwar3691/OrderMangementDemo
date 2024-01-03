@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/resources/colors_manager.dart';
+import 'package:hoteldemo/core/widgets/item_count_button.dart';
 import 'package:hoteldemo/core/widgets/reusable_text.dart';
 import 'package:hoteldemo/features/menu/domain/model/menu_model.dart';
 import 'package:hoteldemo/features/menu/presentation/provider/menu_toogle_provider.dart';
@@ -63,44 +64,24 @@ class _MenuListWidgetState extends ConsumerState<MenuListWidget> {
             ),
           ),
           Expanded(
-              child: Row(
-            children: [
-              Expanded(
-                child: IconButton(
-                    alignment: Alignment(0, -0.5.h),
-                    onPressed: () {
-                      ref.read(menuCountProvider.notifier).decrementCount(
-                          widget.items.name.toString(),
-                          widget.items.price!.toInt());
-                      ref
-                          .read(totalPriceProvider.notifier)
-                          .calculateTotalPrice(menuCount);
-                    },
-                    icon: Icon(
-                      Icons.minimize,
-                      size: 18.h,
-                    )),
-              ),
-              ReusableText.textWigdet(
-                  text: menuCount[widget.items.name]?['count'].toString() ??
-                      0.toString()),
-              Expanded(
-                child: IconButton(
-                    onPressed: () {
-                      ref.read(menuCountProvider.notifier).incrementCount(
-                          widget.items.name.toString(),
-                          widget.items.price!.toInt());
-                      ref
-                          .read(totalPriceProvider.notifier)
-                          .calculateTotalPrice(menuCount);
-                    },
-                    icon: Icon(
-                      Icons.add,
-                      size: 18.h,
-                    )),
-              ),
-            ],
-          ))
+            child: ItemButtonCount(
+              count: menuCount[widget.items.name]?['count'].toString(),
+              onPressedMin: () {
+                ref.read(menuCountProvider.notifier).decrementCount(
+                    widget.items.name.toString(), widget.items.price!.toInt());
+                ref
+                    .read(totalPriceProvider.notifier)
+                    .calculateTotalPrice(menuCount);
+              },
+              onPressedAdd: () {
+                ref.read(menuCountProvider.notifier).incrementCount(
+                    widget.items.name.toString(), widget.items.price!.toInt());
+                ref
+                    .read(totalPriceProvider.notifier)
+                    .calculateTotalPrice(menuCount);
+              },
+            ),
+          )
         ],
       ),
     );

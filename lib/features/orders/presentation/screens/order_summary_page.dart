@@ -209,6 +209,9 @@ class _OrderSummaryPageState extends ConsumerState<OrderSummaryPage> {
                       ref.read(orderListProvider.notifier).saveOrder(
                           items: orderList.orderList,
                           billPrice: totalPriceState.totalBill.toInt());
+                      ref.read(orderListProvider.notifier).getOrderHistory();
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, AppRoutes.mainPage, (route) => false);
                     },
                     child: const Text('Confirm Order')))
           ],

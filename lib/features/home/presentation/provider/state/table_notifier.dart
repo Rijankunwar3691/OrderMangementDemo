@@ -12,4 +12,6 @@ class TableListNotifier extends StateNotifier<List<TabelModel>> {
     final data = tablesRepository.getTableData();
     state = data;
   }
+
+  
 }

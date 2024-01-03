@@ -25,4 +25,8 @@ class OrderDataSource {
   Future<void> deleteOrder(int id) async {
     await _dbServices.deleteOrder(id);
   }
+
+  Future<void> updateOrder(int id, ItemModel data) async {
+    await _dbServices.updateOrder(id, data);
+  }
 }

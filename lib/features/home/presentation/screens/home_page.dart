@@ -6,6 +6,9 @@ import 'package:hoteldemo/features/home/presentation/provider/tables_list_provid
 import 'package:hoteldemo/features/home/presentation/widgets/table_container.dart';
 import 'package:hoteldemo/features/menu/presentation/provider/menu_list_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/screens/select_order_page.dart';
+import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
+import 'package:hoteldemo/features/table%20status/presentation/providers/table_detail_provider.dart';
+import 'package:hoteldemo/features/table%20status/presentation/screens/table_detail_page.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -18,6 +21,8 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     final tableList = ref.watch(tableListProvider);
+    final orderState = ref.watch(orderListProvider);
+    final orderList = orderState.orderList;
 
     return SafeArea(
       child: Scaffold(
@@ -59,19 +64,46 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
               Expanded(
                 child: GridView.builder(
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3, crossAxisSpacing: 8.w),
-                  itemCount: tableList.length,
-                  itemBuilder: (context, index) => GestureDetector(
-                      onTap: () {
-                        ref.read(menuListProvider.notifier).getMenuList();
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => SelectOrderPage(tableNo:tableList[index].id.toString() ),));
-                      },
-                      child: TableContainer(
-                          tableNo: tableList[index].id.toString(),
-                          isOccupied: tableList[index].isOccupied.toString())),
-                ),
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3, crossAxisSpacing: 8.w),
+                    itemCount: tableList.length,
+                    itemBuilder: (context, index) {
+                      if (orderList.any(
+                          (element) => element.id == tableList[index].id)) {
+                        return GestureDetector(
+                            onTap: () {
+                              ref.read(menuListProvider.notifier).getMenuList();
+                              ref
+                                  .read(tableDetailProvider.notifier)
+                                  .filterTableData(orderList,
+                                      tableList[index].id.toString());
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const TableDetailPage()));
+                            },
+                            child: TableContainer(
+                                tableNo: tableList[index].id.toString(),
+                                isOccupied: true));
+                      } else {
+                        return GestureDetector(
+                            onTap: () {
+                              ref.read(menuListProvider.notifier).getMenuList();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SelectOrderPage(
+                                        tableNo:
+                                            tableList[index].id.toString()),
+                                  ));
+                            },
+                            child: TableContainer(
+                                tableNo: tableList[index].id.toString(),
+                                isOccupied: false));
+                      }
+                    }),
               )
             ],
           ),

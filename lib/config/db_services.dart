@@ -29,6 +29,17 @@ class DbServices {
   deleteOrder(int id) async {
     final db = await DataBaseConfig().initDatabase();
 
-    await db.delete(DbKeys.tName, where: '${DbKeys.orderId} = ?',whereArgs: [id]);
+    await db
+        .delete(DbKeys.tName, where: '${DbKeys.orderId} = ?', whereArgs: [id]);
+  }
+
+  updateOrder(int id, ItemModel items) async {
+    final db = await DataBaseConfig().initDatabase();
+    db.update(
+      DbKeys.tName,
+      items.tojson(),
+      where: '${DbKeys.orderId} = ?',
+      whereArgs: [id],
+    );
   }
 }

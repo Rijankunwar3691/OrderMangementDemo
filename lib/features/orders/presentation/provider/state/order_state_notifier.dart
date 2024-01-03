@@ -36,4 +36,21 @@ class OrderStateNotifier extends StateNotifier<OrderState> {
   Future<void> deleteOrder(int id) async {
     await ordersRepository.deleteOrder(id);
   }
+
+  Future<void> incrementOrder(int count, int id, ItemModel data) async {
+    count = (count + 1);
+
+    data.count = count;
+
+    await ordersRepository.updateOrder(id, data);
+  }
+
+  Future<void> decrementOrder(int count, int id, ItemModel data) async {
+    if (count > 0) {
+      count = count - 1;
+      data.count = count;
+
+      await ordersRepository.updateOrder(id, data);
+    }
+  }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/export.dart';
+import 'package:hoteldemo/core/widgets/item_count_button.dart';
+import 'package:hoteldemo/features/menu/domain/model/menu_model.dart';
 import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
 
 class OrdersPage extends ConsumerStatefulWidget {
@@ -46,9 +48,14 @@ class _OrdersPageState extends ConsumerState<OrdersPage> {
                       itemBuilder: (BuildContext context, int index) {
                         return Dismissible(
                           key: Key(orderList[index].orderId.toString()),
-                          onDismissed: (direction) => ref
-                              .read(orderListProvider.notifier)
-                              .deleteOrder(orderList[index].orderId!.toInt()),
+                          onDismissed: (direction) {
+                            ref.read(orderListProvider.notifier).deleteOrder(
+                                  orderList[index].orderId!.toInt(),
+                                );
+                            ref
+                                .read(orderListProvider.notifier)
+                                .getOrderHistory();
+                          },
                           background: Container(
                             alignment: Alignment.centerRight,
                             padding: EdgeInsets.only(right: 10.w),
@@ -59,6 +66,48 @@ class _OrdersPageState extends ConsumerState<OrdersPage> {
                             ),
                           ),
                           child: ListTile(
+                            trailing: SizedBox(
+                              width: 80.w,
+                              child: ItemButtonCount(
+                                count: orderList[index].count.toString(),
+                                onPressedMin: () {
+                                  ItemModel data = ItemModel(
+                                      name: orderList[index].name,
+                                      price: orderList[index].price,
+                                      id: orderList[index].id,
+                                      orderId: orderList[index].orderId,
+                                      billPrice: orderList[index].billPrice,
+                                      count: orderList[index].count);
+                                  ref
+                                      .read(orderListProvider.notifier)
+                                      .decrementOrder(
+                                          orderList[index].count!.toInt(),
+                                          orderList[index].orderId!.toInt(),
+                                          data);
+                                  ref
+                                      .read(orderListProvider.notifier)
+                                      .getOrderHistory();
+                                },
+                                onPressedAdd: () {
+                                  ItemModel data = ItemModel(
+                                      name: orderList[index].name,
+                                      price: orderList[index].price,
+                                      id: orderList[index].id,
+                                      orderId: orderList[index].orderId,
+                                      billPrice: orderList[index].billPrice,
+                                      count: orderList[index].count);
+                                  ref
+                                      .read(orderListProvider.notifier)
+                                      .incrementOrder(
+                                          orderList[index].count!.toInt(),
+                                          orderList[index].orderId!.toInt(),
+                                          data);
+                                  ref
+                                      .read(orderListProvider.notifier)
+                                      .getOrderHistory();
+                                },
+                              ),
+                            ),
                             leading: Container(
                               height: 50.h,
                               width: 60.w,

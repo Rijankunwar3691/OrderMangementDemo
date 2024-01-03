@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hoteldemo/core/resources/colors_manager.dart';
+import 'package:hoteldemo/core/export.dart';
+import 'package:hoteldemo/features/authentication/presentation/screens/login_page.dart';
 import 'package:hoteldemo/features/home/presentation/screens/home_page.dart';
 import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
 import 'package:hoteldemo/features/orders/presentation/screens/orders_page.dart';
@@ -18,7 +19,8 @@ class _CustomButtomBarState extends ConsumerState<CustomButtomBar> {
   final List<Widget> pages = [
     const HomePage(),
     const OrdersPage(),
-    const ProfilePage()
+    const ProfilePage(),
+    const LoginPage()
   ];
   @override
   Widget build(BuildContext context) {
@@ -31,8 +33,23 @@ class _CustomButtomBarState extends ConsumerState<CustomButtomBar> {
           setState(() {
             _selectedIndex = value;
           });
-          if (_selectedIndex == 1) {
-            ref.read(orderListProvider.notifier).getOrderHistory();
+          switch (_selectedIndex) {
+            case 0:
+              ref.read(orderListProvider.notifier).getOrderHistory();
+
+              break;
+            case 1:
+              ref.read(orderListProvider.notifier).getOrderHistory();
+
+              break;
+            case 2:
+              ref.read(orderListProvider.notifier).getOrderHistory();
+
+              break;
+            case 3:
+              Navigator.pushReplacementNamed(context, AppRoutes.loginRoute);
+
+              break;
           }
         },
         items: const [

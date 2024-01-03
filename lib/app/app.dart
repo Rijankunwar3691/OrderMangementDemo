@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/export.dart';
-import 'package:hoteldemo/features/bottom%20navbar/bottom_navbar.dart';
+import 'package:hoteldemo/features/authentication/presentation/screens/login_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
           onGenerateRoute: RoutesGenerator.getRoute,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.appTheme(),
-          home: const CustomButtomBar(),
+          home: const LoginPage(),
         );
       },
     );
