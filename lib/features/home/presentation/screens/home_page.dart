@@ -8,7 +8,6 @@ import 'package:hoteldemo/features/menu/presentation/provider/menu_list_provider
 import 'package:hoteldemo/features/menu/presentation/screens/select_order_page.dart';
 import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
 import 'package:hoteldemo/features/table%20status/presentation/providers/table_detail_provider.dart';
-import 'package:hoteldemo/features/table%20status/presentation/screens/table_detail_page.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -53,12 +52,17 @@ class _HomePageState extends ConsumerState<HomePage> {
               SizedBox(
                 height: 30.h,
               ),
-              SizedBox(
-                  height: 45.h,
-                  child: BuildTextFormField(
-                    hintText: 'Search by table number',
-                    radius: 30.r,
-                  )),
+              GestureDetector(
+                onTap: () =>
+                    Navigator.pushNamed(context, AppRoutes.tablesearchRoute),
+                child: SizedBox(
+                    height: 45.h,
+                    child: BuildTextFormField(
+                      hintText: 'Search by table number',
+                      radius: 30.r,
+                      enabled: false,
+                    )),
+              ),
               SizedBox(
                 height: 20.h,
               ),
@@ -73,16 +77,19 @@ class _HomePageState extends ConsumerState<HomePage> {
                           (element) => element.id == tableList[index].id)) {
                         return GestureDetector(
                             onTap: () {
-                              ref.read(menuListProvider.notifier).getMenuList();
                               ref
-                                  .read(tableDetailProvider.notifier)
-                                  .filterTableData(orderList,
-                                      tableList[index].id.toString());
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const TableDetailPage()));
+                                  .read(orderListProvider.notifier)
+                                  .getOrderHistory()
+                                  .then((_) {
+                                ref
+                                    .read(tableDetailProvider.notifier)
+                                    .filterTableData(
+                                        ref.read(orderListProvider).orderList,
+                                        tableList[index].id.toString());
+
+                                Navigator.pushNamed(
+                                    context, AppRoutes.tableDetailRoute);
+                              });
                             },
                             child: TableContainer(
                                 tableNo: tableList[index].id.toString(),

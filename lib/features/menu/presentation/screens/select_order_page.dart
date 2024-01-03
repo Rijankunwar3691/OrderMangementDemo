@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hoteldemo/core/export.dart';
 import 'package:hoteldemo/core/resources/colors_manager.dart';
 import 'package:hoteldemo/core/widgets/app_bar.dart';
 import 'package:hoteldemo/core/widgets/reusable_text.dart';
@@ -59,10 +60,16 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
         padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
         child: Column(
           children: [
-            SizedBox(
-                height: 45.h,
-                child: BuildTextFormField(
-                    hintText: 'Search for food item', radius: 30.r)),
+            GestureDetector(
+              onTap: () =>
+                  Navigator.pushNamed(context, AppRoutes.menusearchRoute),
+              child: SizedBox(
+                  height: 45.h,
+                  child: BuildTextFormField(
+                      enabled: false,
+                      hintText: 'Search for food item',
+                      radius: 30.r)),
+            ),
             SizedBox(
               height: 30.h,
             ),

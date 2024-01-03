@@ -5,15 +5,23 @@ class BuildTextFormField extends StatelessWidget {
   final String hintText;
   final double radius;
   final String? labelText;
+  final bool enabled;
+  final void Function(String)? onChanged;
+
   const BuildTextFormField(
       {super.key,
       required this.hintText,
       required this.radius,
-      this.labelText});
+      this.labelText,
+      required this.enabled,
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: true,
+      onChanged: onChanged,
+      enabled: enabled,
       decoration: InputDecoration(
           prefixIcon: const Icon(
             Icons.search,

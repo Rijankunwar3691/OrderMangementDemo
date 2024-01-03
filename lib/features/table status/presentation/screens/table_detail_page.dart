@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/export.dart';
 import 'package:hoteldemo/core/widgets/item_count_button.dart';
 import 'package:hoteldemo/features/menu/domain/model/menu_model.dart';
+import 'package:hoteldemo/features/menu/presentation/screens/select_order_page.dart';
 import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
 import 'package:hoteldemo/features/table%20status/presentation/providers/table_detail_provider.dart';
 
@@ -27,7 +28,12 @@ class _TableDetailPageState extends ConsumerState<TableDetailPage> {
       body: isLoad
           ? const CircularProgressIndicator()
           : tableDetail.isEmpty
-              ? Text('empty')
+              ? Center(
+                  child: ReusableText.textWigdet(
+                      text: 'No any Orders...',
+                      fSize: 28.sp,
+                      fw: FontWeight.bold,
+                      color: Appcolors.greyInformation))
               : Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 18.w, vertical: 18.h),
@@ -213,6 +219,15 @@ class _TableDetailPageState extends ConsumerState<TableDetailPage> {
                     ],
                   ),
                 ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Appcolors.primary,
+        child: const Icon(Icons.add),
+        onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SelectOrderPage(tableNo: tableDetail[0].id),
+            )),
+      ),
     );
   }
 }
