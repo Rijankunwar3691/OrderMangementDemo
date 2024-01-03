@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/export.dart';
+import 'package:hoteldemo/features/authentication/presentation/provider/validator_provider.dart';
 import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
@@ -54,16 +55,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   controller: emailController,
                   labelText: 'Email',
                   hintText: 'username',
-                  validator: (p0) {
-                    if (p0!.isEmpty) {
-                      return 'email is required ';
-                    } else if (!p0.contains('@')) {
-                      return 'enter valid email ';
-                    } else if (emailController.text != 'admin@gmail.com') {
-                      return 'incorrecr email';
-                    }
-                    return null;
-                  },
+                  validator: (p0) =>
+                      ref.read(validatorProvider.notifier).validateEmail(p0),
                   radius: 30.r,
                 ),
                 SizedBox(
@@ -73,14 +66,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   controller: passController,
                   hintText: 'password',
                   radius: 30.r,
-                  validator: (p0) {
-                    if (p0!.isEmpty) {
-                      return 'email is required ';
-                    } else if (passController.text != '1234') {
-                      return 'incorrect password';
-                    }
-                    return null;
-                  },
+                  validator: (p0) =>
+                      ref.read(validatorProvider.notifier).validatePassword(p0),
                 ),
                 SizedBox(
                   height: 50.h,
