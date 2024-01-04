@@ -92,6 +92,7 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
                       color: Appcolors.greyInformation),
                 ),
                 Expanded(
+                  flex: 1,
                   child: ReusableText.textWigdet(
                       text: 'Dine In',
                       fSize: 19.sp,
