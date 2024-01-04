@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/export.dart';
-import 'package:hoteldemo/core/resources/colors_manager.dart';
-import 'package:hoteldemo/core/widgets/app_bar.dart';
-import 'package:hoteldemo/core/widgets/reusable_text.dart';
-import 'package:hoteldemo/core/widgets/text_field.dart';
 import 'package:hoteldemo/features/menu/presentation/provider/menu_toogle_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/provider/menu_list_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/widgets/menu_list_widget.dart';
@@ -54,24 +50,26 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
 
     final menuCount = ref.watch(menuCountProvider);
 
+
     return Scaffold(
-      appBar: AppBarWidget.appBar(title: 'Menu'),
+      appBar: AppBar(
+        title: const Text('Menu'),
+        centerTitle: true,
+        elevation: 0.0,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.menusearchRoute);
+              },
+              icon: const Icon(Icons.search))
+        ],
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
         child: Column(
           children: [
-            GestureDetector(
-              onTap: () =>
-                  Navigator.pushNamed(context, AppRoutes.menusearchRoute),
-              child: SizedBox(
-                  height: 45.h,
-                  child: BuildTextFormField(
-                      enabled: false,
-                      hintText: 'Search for food item',
-                      radius: 30.r)),
-            ),
             SizedBox(
-              height: 30.h,
+              height: 10.h,
             ),
             Row(
               children: [
@@ -174,8 +172,10 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
           ],
         ),
       ),
-      bottomSheet: TotalSheetWidget(
-          orderCount: menuCount.length, tableNo: widget.tableNo.toString()),
+      bottomSheet: menuCount.isEmpty
+          ? const SizedBox()
+          : TotalSheetWidget(
+              orderCount: menuCount.length, tableNo: widget.tableNo.toString()),
     );
   }
 }

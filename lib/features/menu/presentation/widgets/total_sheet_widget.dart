@@ -22,7 +22,7 @@ class _TotalSheetWidgetState extends ConsumerState<TotalSheetWidget> {
   Widget build(BuildContext context) {
     final menuCount = ref.watch(menuCountProvider);
     final totalPriceState = ref.watch(totalPriceProvider);
-
+ 
     return SizedBox(
       height: 85.h,
       child: Row(
@@ -57,19 +57,17 @@ class _TotalSheetWidgetState extends ConsumerState<TotalSheetWidget> {
             ),
           ),
           ElevatedButton(
-              onPressed: menuCount.isEmpty
-                  ? null
-                  : () {
-                      ref
-                          .read(orderListProvider.notifier)
-                          .getOrderList(menuCount, widget.tableNo);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                OrderSummaryPage(tableNo: widget.tableNo),
-                          ));
-                    },
+              onPressed: () {
+                ref
+                    .read(orderListProvider.notifier)
+                    .getOrderList(menuCount, widget.tableNo);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          OrderSummaryPage(tableNo: widget.tableNo),
+                    ));
+              },
               child: const Text('View Order'))
         ],
       ),

@@ -26,20 +26,18 @@ class _MenuSearchPageState extends ConsumerState<MenuSearchPage> {
         padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 20.h),
         child: Column(
           children: [
+            BuildTextFormField(
+              enabled: true,
+              hintText: 'Search for food item',
+              radius: 40.r,
+              onChanged: (p0) {
+                ref
+                    .read(searchResultProvider.notifier)
+                    .filterItemSearch(p0, itemList);
+              },
+            ),
             SizedBox(
-                height: 45.h,
-                child: BuildTextFormField(
-                  enabled: true,
-                  hintText: 'Search for food item',
-                  radius: 30.r,
-                  onChanged: (p0) {
-                    ref
-                        .read(searchResultProvider.notifier)
-                        .filterItemSearch(p0, itemList);
-                  },
-                )),
-            SizedBox(
-              height: 15.h,
+              height: 20.h,
             ),
             Expanded(
                 child: ListView.builder(

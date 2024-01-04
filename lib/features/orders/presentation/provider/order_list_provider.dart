@@ -5,6 +5,6 @@ import 'package:hoteldemo/features/orders/presentation/provider/state/order_stat
 
 final orderListProvider =
     StateNotifierProvider<OrderStateNotifier, OrderState>((ref) {
-      final ordersRepository = ref.watch(orderRepoProvider);
-  return  OrderStateNotifier(ordersRepository: ordersRepository);
+  final ordersRepository = ref.watch(orderRepoProvider);
+  return OrderStateNotifier(ordersRepository: ordersRepository);
 });

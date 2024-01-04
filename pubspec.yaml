@@ -67,6 +67,9 @@ flutter:
     - assets/icons/profile.png
     - assets/icons/waiter.png
     - assets/icons/waiter_1.png
+    - assets/icons/food_icon.png
+
+
 
   #   - images/a_dot_ham.jpeg
 

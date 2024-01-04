@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
             height: 40.h,
           ),
           TweenAnimationBuilder(
-            duration: const Duration(seconds: 4),
+            duration: const Duration(seconds: 2),
             tween: Tween<double>(begin: 0.0, end: 1.0),
             builder: (BuildContext context, dynamic value, Widget? child) {
               return Opacity(
@@ -55,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
             height: 7.h,
           ),
           TweenAnimationBuilder(
-            duration: const Duration(seconds: 3),
+            duration: const Duration(seconds: 2),
             tween: Tween<double>(begin: 0.0, end: 1.0),
             builder: (BuildContext context, dynamic value, Widget? child) {
               return Opacity(

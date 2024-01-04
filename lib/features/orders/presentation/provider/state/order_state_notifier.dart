@@ -8,6 +8,7 @@ class OrderStateNotifier extends StateNotifier<OrderState> {
   OrderStateNotifier({required this.ordersRepository})
       : super(OrderState(
           orderList: [],
+          orderHistory: [],
           isLoad: false,
         ));
 
@@ -30,7 +31,7 @@ class OrderStateNotifier extends StateNotifier<OrderState> {
     state = state.copyWith(isLoad: true);
     final data = await ordersRepository.getOrdersList();
 
-    state = state.copyWith(isLoad: false, orderList: data);
+    state = state.copyWith(isLoad: false, orderHistory: data);
   }
 
   Future<void> deleteOrder(int id) async {

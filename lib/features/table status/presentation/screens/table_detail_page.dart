@@ -26,7 +26,7 @@ class _TableDetailPageState extends ConsumerState<TableDetailPage> {
     return Scaffold(
       appBar: AppBarWidget.appBar(title: 'Table Detail'),
       body: isLoad
-          ? const CircularProgressIndicator()
+          ? const Center(child: CircularProgressIndicator())
           : tableDetail.isEmpty
               ? Center(
                   child: ReusableText.textWigdet(
@@ -101,7 +101,9 @@ class _TableDetailPageState extends ConsumerState<TableDetailPage> {
                                   ref
                                       .read(tableDetailProvider.notifier)
                                       .filterTableData(
-                                          ref.read(orderListProvider).orderList,
+                                          ref
+                                              .read(orderListProvider)
+                                              .orderHistory,
                                           tableDetail[index].id!.toString());
                                 });
                               },

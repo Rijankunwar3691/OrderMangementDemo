@@ -21,7 +21,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     final tableList = ref.watch(tableListProvider);
     final orderState = ref.watch(orderListProvider);
-    final orderList = orderState.orderList;
+    final orderHistory = orderState.orderHistory;
 
     return SafeArea(
       child: Scaffold(
@@ -73,7 +73,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         crossAxisCount: 3, crossAxisSpacing: 8.w),
                     itemCount: tableList.length,
                     itemBuilder: (context, index) {
-                      if (orderList.any(
+                      if (orderHistory.any(
                           (element) => element.id == tableList[index].id)) {
                         return GestureDetector(
                             onTap: () {
@@ -84,7 +84,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 ref
                                     .read(tableDetailProvider.notifier)
                                     .filterTableData(
-                                        ref.read(orderListProvider).orderList,
+                                        ref
+                                            .read(orderListProvider)
+                                            .orderHistory,
                                         tableList[index].id.toString());
 
                                 Navigator.pushNamed(

@@ -13,6 +13,7 @@ class AppTheme {
             color: Colors.black, fontSize: 20.sp, fontWeight: FontWeight.w600),
       ),
       tabBarTheme: TabBarTheme(
+        indicatorSize: TabBarIndicatorSize.tab,
         labelColor: Colors.white,
         labelStyle: TextStyle(fontSize: 18.sp),
         unselectedLabelStyle: TextStyle(fontSize: 14.sp),

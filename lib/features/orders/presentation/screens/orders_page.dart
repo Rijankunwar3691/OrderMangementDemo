@@ -19,7 +19,7 @@ class _OrdersPageState extends ConsumerState<OrdersPage> {
     final orderState = ref.watch(orderListProvider);
 
     final isLoad = orderState.isLoad;
-    final orderList = orderState.orderList;
+    final orderList = orderState.orderHistory;
     return Scaffold(
       appBar: AppBarWidget.appBar(title: 'Orders'),
       body: isLoad

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/export.dart';
+import 'package:hoteldemo/core/widgets/messenger.dart';
 import 'package:hoteldemo/features/menu/presentation/provider/total_price_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/widgets/menu_list_widget.dart';
 import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
@@ -30,71 +31,70 @@ class _OrderSummaryPageState extends ConsumerState<OrderSummaryPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              height: 60.h,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.r),
-                border: Border.all(color: Appcolors.accentOrange),
-              ),
-              child: Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ReusableText.textWigdet(
-                          text: 'Table', fSize: 16.sp, fw: FontWeight.w500),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      ReusableText.textWigdet(
-                          text: widget.tableNo.toString(),
-                          fSize: 18.sp,
-                          fw: FontWeight.w600),
-                    ],
-                  ),
-                  const Spacer(),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ReusableText.textWigdet(
-                          text: 'Guest 2',
-                          fSize: 16.sp,
-                          fw: FontWeight.w500,
-                          color: Appcolors.blackPrimaryMinus2),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w),
-                        decoration: BoxDecoration(
-                            color: Appcolors.accentOrange,
-                            borderRadius: BorderRadius.circular(8.r)),
-                        child: ReusableText.textWigdet(
-                            text: 'Tables', fSize: 16.sp, fw: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                ],
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.r),
+                  border: Border.all(color: Appcolors.accentOrange),
+                ),
+                child: Row(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ReusableText.textWigdet(
+                            text: 'Table', fSize: 16.sp, fw: FontWeight.w500),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        ReusableText.textWigdet(
+                            text: widget.tableNo.toString(),
+                            fSize: 18.sp,
+                            fw: FontWeight.w600),
+                      ],
+                    ),
+                    const Spacer(),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ReusableText.textWigdet(
+                            text: 'Guest 2',
+                            fSize: 16.sp,
+                            fw: FontWeight.w500,
+                            color: Appcolors.blackPrimaryMinus2),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8.w),
+                          decoration: BoxDecoration(
+                              color: Appcolors.accentOrange,
+                              borderRadius: BorderRadius.circular(8.r)),
+                          child: ReusableText.textWigdet(
+                              text: 'Tables',
+                              fSize: 16.sp,
+                              fw: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(
               height: 40.h,
             ),
-            SizedBox(
-              height: 380.h,
+            Expanded(
+              flex: 5,
               child: ListView.separated(
                 shrinkWrap: true,
                 itemCount: orderList.orderList.length,
                 separatorBuilder: (BuildContext context, int index) {
-                  return Container(
-                    margin: EdgeInsetsDirectional.only(
-                      bottom: 10.h,
-                    ),
-                    height: 1.5.h,
-                    width: double.infinity,
+                  return Divider(
                     color: Appcolors.mutedLine,
+                    thickness: 1.h,
                   );
                 },
                 itemBuilder: (BuildContext context, int index) {
@@ -212,6 +212,8 @@ class _OrderSummaryPageState extends ConsumerState<OrderSummaryPage> {
                       ref.read(orderListProvider.notifier).getOrderHistory();
                       Navigator.pushNamedAndRemoveUntil(
                           context, AppRoutes.mainPage, (route) => false);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          CustomSnackBar.snackBar(msg: 'Order Sucessfull'));
                     },
                     child: const Text('Confirm Order')))
           ],
