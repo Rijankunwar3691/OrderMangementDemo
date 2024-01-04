@@ -224,11 +224,7 @@ class _TableDetailPageState extends ConsumerState<TableDetailPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Appcolors.primary,
         child: const Icon(Icons.add),
-        onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SelectOrderPage(tableNo: tableDetail[0].id),
-            )),
+        onPressed: () => Navigator.pushNamed(context, AppRoutes.menuRoute),
       ),
     );
   }

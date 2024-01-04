@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/export.dart';
+import 'package:hoteldemo/features/home/presentation/provider/table_no_provider.dart';
 import 'package:hoteldemo/features/home/presentation/provider/tables_list_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/provider/menu_list_provider.dart';
-import 'package:hoteldemo/features/menu/presentation/screens/select_order_page.dart';
 import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
 import 'package:hoteldemo/features/search/presentation/provider/search_result_provider.dart';
 import 'package:hoteldemo/features/table%20status/presentation/providers/table_detail_provider.dart';
@@ -23,7 +23,7 @@ class _SearchPageState extends ConsumerState<TableSearchPage> {
     final searchState = ref.watch(searchResultProvider);
     final searchResult = searchState.tableSearchResult;
     final orderState = ref.watch(orderListProvider);
-    final orderList = orderState.orderList;
+    final orderList = orderState.orderHistory;
 
     return Scaffold(
       appBar: AppBarWidget.appBar(title: 'Search'),
@@ -40,6 +40,9 @@ class _SearchPageState extends ConsumerState<TableSearchPage> {
                     .read(searchResultProvider.notifier)
                     .filterTableSearch(p0, tableList),
               ),
+            ),
+            SizedBox(
+              height: 15.h,
             ),
             Expanded(
                 flex: 7,
@@ -61,7 +64,7 @@ class _SearchPageState extends ConsumerState<TableSearchPage> {
                               ref
                                   .read(tableDetailProvider.notifier)
                                   .filterTableData(
-                                      ref.read(orderListProvider).orderList,
+                                      ref.read(orderListProvider).orderHistory,
                                       searchResult[index].id.toString());
 
                               Navigator.pushNamed(
@@ -107,13 +110,9 @@ class _SearchPageState extends ConsumerState<TableSearchPage> {
                       return GestureDetector(
                           onTap: () {
                             ref.read(menuListProvider.notifier).getMenuList();
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SelectOrderPage(
-                                      tableNo:
-                                          searchResult[index].id.toString()),
-                                ));
+                            ref.read(tableNoProvider.notifier).state =
+                                searchResult[index].id.toString();
+                            Navigator.pushNamed(context, AppRoutes.menuRoute);
                           },
                           child: Row(
                             children: [

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/export.dart';
+import 'package:hoteldemo/features/home/presentation/provider/table_no_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/provider/menu_toogle_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/provider/menu_list_provider.dart';
 import 'package:hoteldemo/features/menu/presentation/widgets/menu_list_widget.dart';
 import 'package:hoteldemo/features/menu/presentation/widgets/total_sheet_widget.dart';
 
 class SelectOrderPage extends ConsumerStatefulWidget {
-  final String? tableNo;
-  const SelectOrderPage({super.key, this.tableNo});
+  const SelectOrderPage({super.key});
 
   @override
   ConsumerState<SelectOrderPage> createState() => _SelectOrderPageState();
@@ -50,6 +50,7 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
 
     final menuCount = ref.watch(menuCountProvider);
 
+    final tableNo = ref.watch(tableNoProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -72,28 +73,31 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
               height: 10.h,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ReusableText.textWigdet(
-                    text: '# Table ${widget.tableNo.toString()}',
-                    fSize: 19.sp,
-                    fw: FontWeight.w600,
-                    color: Appcolors.blackPrimary),
-                SizedBox(
-                  width: 80.w,
+                Expanded(
+                  flex: 2,
+                  child: ReusableText.textWigdet(
+                      text: '# Table $tableNo',
+                      fSize: 19.sp,
+                      fw: FontWeight.w600,
+                      color: Appcolors.blackPrimary),
                 ),
-                ReusableText.textWigdet(
-                    text: 'Guest 2',
-                    fSize: 19.sp,
-                    fw: FontWeight.w500,
-                    color: Appcolors.greyInformation),
-                SizedBox(
-                  width: 80.w,
+                Expanded(
+                  flex: 2,
+                  child: ReusableText.textWigdet(
+                      text: 'Guest 2',
+                      fSize: 19.sp,
+                      fw: FontWeight.w500,
+                      color: Appcolors.greyInformation),
                 ),
-                ReusableText.textWigdet(
-                    text: 'Dine In',
-                    fSize: 19.sp,
-                    fw: FontWeight.w500,
-                    color: Appcolors.greyInformation),
+                Expanded(
+                  child: ReusableText.textWigdet(
+                      text: 'Dine In',
+                      fSize: 19.sp,
+                      fw: FontWeight.w500,
+                      color: Appcolors.greyInformation),
+                ),
               ],
             ),
             SizedBox(
@@ -174,8 +178,7 @@ class _SelectOrderPageState extends ConsumerState<SelectOrderPage>
       ),
       bottomSheet: menuCount.isEmpty
           ? const SizedBox()
-          : TotalSheetWidget(
-              orderCount: menuCount.length, tableNo: widget.tableNo.toString()),
+          : TotalSheetWidget(orderCount: menuCount.length, tableNo: tableNo),
     );
   }
 }
