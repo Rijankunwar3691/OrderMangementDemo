@@ -39,6 +39,7 @@ class _TableDetailPageState extends ConsumerState<TableDetailPage> {
                   child: Column(
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Expanded(
                             flex: 2,
@@ -57,6 +58,7 @@ class _TableDetailPageState extends ConsumerState<TableDetailPage> {
                                 color: Appcolors.greyInformation),
                           ),
                           Expanded(
+                            flex: 1,
                             child: ReusableText.textWigdet(
                                 text: 'Dine In',
                                 fSize: 19.sp,
@@ -148,7 +150,7 @@ class _TableDetailPageState extends ConsumerState<TableDetailPage> {
                                             .filterTableData(
                                                 ref
                                                     .read(orderListProvider)
-                                                    .orderList,
+                                                    .orderHistory,
                                                 tableDetail[0].id.toString());
                                       });
                                     },
@@ -178,7 +180,7 @@ class _TableDetailPageState extends ConsumerState<TableDetailPage> {
                                             .filterTableData(
                                                 ref
                                                     .read(orderListProvider)
-                                                    .orderList,
+                                                    .orderHistory,
                                                 tableDetail[0].id.toString());
                                       });
                                     },
