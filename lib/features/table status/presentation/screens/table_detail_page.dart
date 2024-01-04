@@ -40,27 +40,29 @@ class _TableDetailPageState extends ConsumerState<TableDetailPage> {
                     children: [
                       Row(
                         children: [
-                          ReusableText.textWigdet(
-                              text: '# Table ${tableDetail[0].id}',
-                              fSize: 19.sp,
-                              fw: FontWeight.w600,
-                              color: Appcolors.blackPrimary),
-                          SizedBox(
-                            width: 80.w,
+                          Expanded(
+                            flex: 2,
+                            child: ReusableText.textWigdet(
+                                text: '# Table ${tableDetail[0].id}',
+                                fSize: 19.sp,
+                                fw: FontWeight.w600,
+                                color: Appcolors.blackPrimary),
                           ),
-                          ReusableText.textWigdet(
-                              text: 'Guest 2',
-                              fSize: 19.sp,
-                              fw: FontWeight.w500,
-                              color: Appcolors.greyInformation),
-                          SizedBox(
-                            width: 80.w,
+                          Expanded(
+                            flex: 2,
+                            child: ReusableText.textWigdet(
+                                text: 'Guest 2',
+                                fSize: 19.sp,
+                                fw: FontWeight.w500,
+                                color: Appcolors.greyInformation),
                           ),
-                          ReusableText.textWigdet(
-                              text: 'Dine In',
-                              fSize: 19.sp,
-                              fw: FontWeight.w500,
-                              color: Appcolors.greyInformation),
+                          Expanded(
+                            child: ReusableText.textWigdet(
+                                text: 'Dine In',
+                                fSize: 19.sp,
+                                fw: FontWeight.w500,
+                                color: Appcolors.greyInformation),
+                          ),
                         ],
                       ),
                       SizedBox(
