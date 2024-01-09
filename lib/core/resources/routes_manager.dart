@@ -6,7 +6,7 @@ import 'package:hoteldemo/features/menu/presentation/screens/select_order_page.d
 import 'package:hoteldemo/features/orders/presentation/screens/order_summary_page.dart';
 import 'package:hoteldemo/features/search/presentation/screens/menu_search_page.dart';
 import 'package:hoteldemo/features/search/presentation/screens/table_search_page.dart';
-import 'package:hoteldemo/features/table%20status/presentation/screens/table_detail_page.dart';
+import 'package:hoteldemo/features/table%20detail/presentation/screens/table_detail_page.dart';
 
 class AppRoutes {
   static const String homeRoute = '/home';

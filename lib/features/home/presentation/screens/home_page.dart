@@ -7,7 +7,7 @@ import 'package:hoteldemo/features/home/presentation/provider/tables_list_provid
 import 'package:hoteldemo/features/home/presentation/widgets/table_container.dart';
 import 'package:hoteldemo/features/menu/presentation/provider/menu_list_provider.dart';
 import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
-import 'package:hoteldemo/features/table%20status/presentation/providers/table_detail_provider.dart';
+import 'package:hoteldemo/features/table%20detail/presentation/providers/table_detail_provider.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});

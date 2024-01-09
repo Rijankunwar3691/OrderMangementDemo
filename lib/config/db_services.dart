@@ -42,4 +42,10 @@ class DbServices {
       whereArgs: [id],
     );
   }
+
+  clearTable(String id) async {
+    final db = await DataBaseConfig().initDatabase();
+
+    await db.delete(DbKeys.tName, where: '${DbKeys.tid} = ?', whereArgs: [id]);
+  }
 }

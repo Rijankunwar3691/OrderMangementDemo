@@ -5,7 +5,6 @@ import 'package:hoteldemo/features/authentication/presentation/screens/login_pag
 import 'package:hoteldemo/features/home/presentation/screens/home_page.dart';
 import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
 import 'package:hoteldemo/features/orders/presentation/screens/orders_page.dart';
-import 'package:hoteldemo/features/profile/presentation/screens/profile_page.dart';
 
 class CustomButtomBar extends ConsumerStatefulWidget {
   const CustomButtomBar({super.key});
@@ -19,7 +18,7 @@ class _CustomButtomBarState extends ConsumerState<CustomButtomBar> {
   final List<Widget> pages = [
     const HomePage(),
     const OrdersPage(),
-    const ProfilePage(),
+    // const ProfilePage(),
     const LoginPage()
   ];
   @override
@@ -42,11 +41,8 @@ class _CustomButtomBarState extends ConsumerState<CustomButtomBar> {
               ref.read(orderListProvider.notifier).getOrderHistory();
 
               break;
-            case 2:
-              ref.read(orderListProvider.notifier).getOrderHistory();
 
-              break;
-            case 3:
+            case 2:
               Navigator.pushReplacementNamed(context, AppRoutes.loginRoute);
 
               break;
@@ -63,11 +59,11 @@ class _CustomButtomBarState extends ConsumerState<CustomButtomBar> {
                 Icons.toc,
               ),
               label: 'Orders'),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.account_circle,
-              ),
-              label: 'Profile'),
+          // BottomNavigationBarItem(
+          //     icon: Icon(
+          //       Icons.account_circle,
+          //     ),
+          //     label: 'Profile'),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.logout,

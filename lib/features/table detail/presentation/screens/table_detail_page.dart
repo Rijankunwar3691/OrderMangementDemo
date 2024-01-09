@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/export.dart';
 import 'package:hoteldemo/core/widgets/item_count_button.dart';
+import 'package:hoteldemo/features/home/presentation/provider/tables_list_provider.dart';
 import 'package:hoteldemo/features/menu/domain/model/menu_model.dart';
 import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
-import 'package:hoteldemo/features/table%20status/presentation/providers/table_detail_provider.dart';
+import 'package:hoteldemo/features/table%20detail/presentation/providers/table_detail_provider.dart';
 
 class TableDetailPage extends ConsumerStatefulWidget {
   const TableDetailPage({super.key});
@@ -221,11 +222,24 @@ class _TableDetailPageState extends ConsumerState<TableDetailPage> {
                           },
                         ),
                       ),
+                      SizedBox(
+                        width: 200.w,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              ref
+                                  .read(tableDetailProvider.notifier)
+                                  .clearTable(tableDetail[0].id);
+                              ref
+                                  .read(orderListProvider.notifier)
+                                  .getOrderHistory();
+                            },
+                            child: Text('Clear Table')),
+                      )
                     ],
                   ),
                 ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Appcolors.primary,
+        backgroundColor: Appcolors.accentOrange,
         child: const Icon(Icons.add),
         onPressed: () => Navigator.pushNamed(context, AppRoutes.menuRoute),
       ),
