@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hoteldemo/core/export.dart';
 import 'package:hoteldemo/core/widgets/item_count_button.dart';
-import 'package:hoteldemo/features/home/presentation/provider/tables_list_provider.dart';
 import 'package:hoteldemo/features/menu/domain/model/menu_model.dart';
+import 'package:hoteldemo/features/menu/presentation/provider/total_price_provider.dart';
 import 'package:hoteldemo/features/orders/presentation/provider/order_list_provider.dart';
 import 'package:hoteldemo/features/table%20detail/presentation/providers/table_detail_provider.dart';
 
@@ -16,11 +16,14 @@ class TableDetailPage extends ConsumerStatefulWidget {
 }
 
 class _TableDetailPageState extends ConsumerState<TableDetailPage> {
+  List items = ['Card', 'Cash', 'QR'];
   @override
   Widget build(BuildContext context) {
     final orderState = ref.watch(orderListProvider);
 
     final tableDetail = ref.watch(tableDetailProvider);
+    final totalPriceState = ref.watch(totalPriceProvider);
+    final totalBill = totalPriceState.totalBill;
     bool isLoad = orderState.isLoad;
 
     return Scaffold(
@@ -223,17 +226,12 @@ class _TableDetailPageState extends ConsumerState<TableDetailPage> {
                         ),
                       ),
                       SizedBox(
-                        width: 200.w,
+                        width: 250.h,
                         child: ElevatedButton(
                             onPressed: () {
-                              ref
-                                  .read(tableDetailProvider.notifier)
-                                  .clearTable(tableDetail[0].id);
-                              ref
-                                  .read(orderListProvider.notifier)
-                                  .getOrderHistory();
+                              PaySheet(context, totalBill, tableDetail);
                             },
-                            child: Text('Clear Table')),
+                            child: Text('Pay')),
                       )
                     ],
                   ),
@@ -243,6 +241,78 @@ class _TableDetailPageState extends ConsumerState<TableDetailPage> {
         child: const Icon(Icons.add),
         onPressed: () => Navigator.pushNamed(context, AppRoutes.menuRoute),
       ),
+    );
+  }
+
+  Future<dynamic> PaySheet(
+      BuildContext context, double totalBill, List<ItemModel> tableDetail) {
+    return showModalBottomSheet(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+              left: 18.w,
+              right: 18.w,
+              top: 18.h,
+              bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ReusableText.textWigdet(
+                  text: 'Total Amount Due ', fSize: 18.sp, fw: FontWeight.w400),
+              ReusableText.textWigdet(
+                  text: totalBill.toString(),
+                  color: Appcolors.primary,
+                  fSize: 20.sp,
+                  fw: FontWeight.bold),
+              SizedBox(
+                height: 15.h,
+              ),
+              Row(
+                children: [
+                  ReusableText.textWigdet(
+                      text: 'Choose Payement Method: ', fSize: 16.sp),
+                  DropdownMenu(
+                    textStyle: TextStyle(color: Colors.blue),
+                    inputDecorationTheme:
+                        InputDecorationTheme(border: InputBorder.none),
+                    initialSelection: items[1],
+                    dropdownMenuEntries: [
+                      DropdownMenuEntry(value: items[0], label: items[0]),
+                      DropdownMenuEntry(value: itemsgit [1], label: items[1]),
+                      DropdownMenuEntry(value: items[2], label: items[2]),
+                    ],
+                  ),
+                ],
+              ),
+              BuildEmailTextFormField(
+                hintText: '0.000',
+                radius: 15.r,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                    onPressed: () {
+                      ref
+                          .read(tableDetailProvider.notifier)
+                          .clearTable(tableDetail[0].id);
+                      ref.read(orderListProvider.notifier).getOrderHistory();
+                      Navigator.pop(context);
+                    },
+                    child: Text('Pay Now')),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

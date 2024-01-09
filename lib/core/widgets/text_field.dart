@@ -111,7 +111,7 @@ class _BuildEmailTextFormFieldState extends State<BuildEmailTextFormField> {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           hintText: widget.hintText,
-          labelText: 'Email',
+          labelText: widget.labelText ?? '',
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(widget.radius))),
     );
